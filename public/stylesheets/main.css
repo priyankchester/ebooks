@@ -1,0 +1,13 @@
+#welcome{
+    color: white;
+    margin-left: 100px;
+}
+
+#upload_submit {
+    display: block;
+    margin-top: 50px;
+}
+
+body{
+    background-image: url("../images/background.jpg")
+}

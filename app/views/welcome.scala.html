@@ -1,0 +1,30 @@
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ebook Convertor</title>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/animate.css")" >
+
+</head>
+<body>
+    <div id="welcome" class="animated bounceInUp">
+        <h2>
+            Welcome
+        </h2>
+
+        <h3>
+            Select a pdf file to convert to ebook format
+        </h3>
+        <div id="upload_file">
+            @helper.form(action = routes.Application.uploadFile, 'enctype -> "multipart/form-data") {
+
+                <input type="file" name="fileUpload">
+                <input id="upload_submit" type="submit" value="Upload">
+            }
+        </div>
+    </div>
+
+</body>
+</html>
