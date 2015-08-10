@@ -1,9 +1,8 @@
 package controllers
 
 import java.io.File
-
+import controllers.aws.SQS
 import play.api.mvc._
-
 import scala.util.Random
 
 class Application extends Controller {
@@ -27,8 +26,10 @@ class Application extends Controller {
       println(localFile)
 
       val uploadResult = aws.s3.uploadPdf(localFile.getName, localFile)
-      if(uploadResult.isRight)
-        println(uploadResult.right.get)
+      if(uploadResult.isRight) {
+        SQS.add(uploadResult.right.get)
+        println(uploadResult.right.get.toString)
+      }
       else
         println(uploadResult.left.get.toString)
     }.getOrElse {

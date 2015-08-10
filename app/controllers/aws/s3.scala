@@ -3,6 +3,7 @@ package controllers.aws
 import java.io.File
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.AmazonS3Client
+import com.amazonaws.services.s3.model.{PutObjectRequest, CannedAccessControlList}
 import com.typesafe.config.ConfigFactory
 
 /**
@@ -32,8 +33,8 @@ object s3 {
 
   private def uploadToS3(bucketName: String, fileName: String, fileToUpload: File): Either[String, String] = {
     try {
-      val url = amazonS3Client.putObject(bucketName, fileName, fileToUpload).toString
-      Right(url)
+      val url = amazonS3Client.putObject(new PutObjectRequest(bucketName, fileName, fileToUpload).withCannedAcl(CannedAccessControlList.PublicRead))
+      Right(amazonS3Client.getResourceUrl(bucketName, fileName))
     }
     catch {
       case e: Exception =>
